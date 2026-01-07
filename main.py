@@ -2,11 +2,12 @@ import uvicorn
 from fastapi import FastAPI
 from api.v1.endpoints import router as v1_router
 from api.v2.endpoints import router as v2_router
+from api.debug.endpoints import router as debug_router
 
 app = FastAPI(
     title="AI Server Mock-up API",
-    description="AI 서버의 v1, v2 라우트 구분을 포함한 API 구조",
-    version="0.0.1"
+    description="AI 서버의 v1, v2 및 디버그 라우트를 포함한 API 구조",
+    version="0.0.2"
 )
 
 # Root path
@@ -21,6 +22,7 @@ async def health_check():
 # Include routers with version prefix
 app.include_router(v1_router, prefix="/api/v1", tags=["v1"])
 app.include_router(v2_router, prefix="/api/v2", tags=["v2"])
+app.include_router(debug_router, prefix="/api/debug", tags=["Debug"])
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)

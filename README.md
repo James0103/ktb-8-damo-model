@@ -7,6 +7,7 @@
 ### 1. API 기능
 - **회식 장소 추천 (v1, v2)**: 사용자 정보, 리뷰 이력, 회식 이력 및 후보 식당 데이터를 기반으로 최적의 장소 추천
 - **사용자 특성 분석 (v2)**: 텍스트 또는 유저 데이터를 분석하여 개인화된 라벨링 제공
+- **디버그 API**: 백엔드/프론트엔드 연동 테스트용 고정 더미 데이터 제공 (`/api/debug`)
 - **헬스 체크**: 서버 상태 확인용 `/health` 엔드포인트 지원
 
 ### 2. 데이터 모델 (Pydantic)
@@ -28,8 +29,10 @@
 ├── api/
 │   ├── v1/
 │   │   └── endpoints.py # v1 라우터 (/api/v1/recommendations)
-│   └── v2/
+│   ├── v2/
 │   │   └── endpoints.py # v2 라우터 (/api/v2/classify, /api/v2/recommendations)
+│   └── debug/
+│       └── endpoints.py # 디버그 라우터 (더미 데이터 제공)
 ├── models/
 │   ├── shared/
 │   │   ├── user.py      # 공통 유저 모델 (알레르기, 비선호 등)
@@ -59,6 +62,7 @@ python main.py
 * 인터랙티브 API 문서는 `http://localhost:8000/docs`에서 확인할 수 있습니다.
 
 ## 📝 최근 작업 요약
+- **디버그 모드 도입**: 운영 로직과 분리된 `/api/debug` 경로를 통해 프론트엔드 개발용 고정 더미 데이터 제공
 - **개인 특성 분석 모델 설계**: `ClassifyRequest`, `ClassifyResponse` 및 AI 분석 결과 구조 정의
 - **Shared 모듈 확장**: `UserData`에 이어 `DiningData`를 `shared`로 이동하여 분석/추천 도메인 간 정합성 확보
 - **모델 계층화**: `RestaurantData` 내부에 `RestaurantReviewData`를 리스트 형태로 포함시켜 데이터 연관성 강화

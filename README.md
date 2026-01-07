@@ -10,12 +10,15 @@
 - **헬스 체크**: 서버 상태 확인용 `/health` 엔드포인트 지원
 
 ### 2. 데이터 모델 (Pydantic)
-- **Shared**: 여러 도메인에서 공통으로 사용되는 모델 (`UserData` 등)
-- **Recommendation**:
+- **Shared**: 여러 도메인에서 공통으로 사용되는 모델
     - `UserData`: 성별, 연령대, **알레르기 정보**, **비선호 음식** 등 상세 속성 포함
     - `DiningData`: 회식 예산, 날짜, 진행 상태(`DiningStatus`) 관리
+- **Recommendation**:
     - `RestaurantData`: 카카오 로컬 API 규격 기반 식당 정보 및 상세 리뷰(`RestaurantReviewData`) 중첩 구조
     - `ReviewData`: 사용자의 과거 방문 리뷰 기록
+- **Classify**:
+    - `GroupData`: 그룹 이름, 소개, 인원 수 등 그룹 속성 관리
+    - `ClassifyAnalysis`: AI가 분석한 핵심 키워드 및 종합 분석 내용
 
 ## 📂 프로젝트 구조
 
@@ -29,21 +32,23 @@
 │   │   └── endpoints.py # v2 라우터 (/api/v2/classify, /api/v2/recommendations)
 ├── models/
 │   ├── shared/
-│   │   └── user.py      # 공통 유저 모델 및 Enum (알레르기, 비선호 등)
+│   │   ├── user.py      # 공통 유저 모델 (알레르기, 비선호 등)
+│   │   └── dining.py    # 공통 회식 모델
 │   ├── recom/           # 추천 도메인 전용 모델 패키지
-│   │   ├── dining.py
 │   │   ├── restaurant.py
 │   │   ├── restaurant_review.py
 │   │   └── review.py
-│   └── classify.py      # 분류 모델
-└── .gitignore           # Python 환경 설정 제외 파일
+│   └── classify/        # 개인 특성 분석 도메인 전용 모델 패키지
+│       ├── __init__.py
+│       └── group.py
+└── README.md
 ```
 
 ## 🛠 실행 방법
 
 ### 의존성 설치
 ```bash
-pip install fastapi uvicorn pydantic
+pip install -r requirements.txt
 ```
 
 ### 서버 실행
@@ -54,7 +59,7 @@ python main.py
 * 인터랙티브 API 문서는 `http://localhost:8000/docs`에서 확인할 수 있습니다.
 
 ## 📝 최근 작업 요약
+- **개인 특성 분석 모델 설계**: `ClassifyRequest`, `ClassifyResponse` 및 AI 분석 결과 구조 정의
+- **Shared 모듈 확장**: `UserData`에 이어 `DiningData`를 `shared`로 이동하여 분석/추천 도메인 간 정합성 확보
 - **모델 계층화**: `RestaurantData` 내부에 `RestaurantReviewData`를 리스트 형태로 포함시켜 데이터 연관성 강화
-- **Shared 모듈화**: 여러 도메인에서 사용되는 `UserData`를 `shared` 폴더로 이동하여 재사용성 확보
-- **상세 제약 조건 반영**: 엔드포인트별 요청(Request)/응답(Response) 모델에 DB 제약 조건(Enum, MaxLength, 정규표현식 등) 반영
-- **v1/v2 라우팅 설계**: 도메인 확장성 및 하위 호환성을 고려한 버전별 API 분리
+- **API 고도화**: 요청/응답 필드에 Snowflake ID(int) 및 시계열 데이터(datetime) 타입 적용

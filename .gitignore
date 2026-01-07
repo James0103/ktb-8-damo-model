@@ -1,0 +1,59 @@
+# Python 바이트 코드 / 캐시
+__pycache__/
+*.py[cod]
+*$py.class
+
+# 가상환경
+venv/
+env/
+.venv/
+ENV/
+env.bak/
+venv.bak/
+
+# 배포 / 빌드 결과물
+build/
+dist/
+*.egg-info/
+*.egg
+*.whl
+
+# 로그 / 임시파일
+*.log
+*.tmp
+*.temp
+
+# 테스트 리포트 / 캐시
+htmlcov/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.pytest_cache/
+
+# Jupyter Notebook 체크포인트
+.ipynb_checkpoints
+
+# 환경 설정 파일
+.env
+.env.*
+
+# IDE / 에디터 설정
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# OS별 불필요 파일
+.DS_Store
+Thumbs.db
+
+# 파이썬 패키지 관련
+pip-log.txt
+pip-delete-this-directory.txt
+
+# C 확장 / 바이너리
+*.so
+

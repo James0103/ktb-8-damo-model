@@ -2,6 +2,7 @@ from fastapi import APIRouter
 from datetime import datetime
 from models.recom import RecommendationResponse, RecommendedItem
 from models.classify import ClassifyResponse, ClassifyAnalysis, ClassifyKeywords
+from models.validation import ReceiptValidationResponse
 
 router = APIRouter()
 
@@ -51,4 +52,14 @@ async def get_dummy_classify():
             contents="사용자는 전반적으로 대화가 가능한 조용한 식당을 선호하며, 고기류에 대해 긍정적인 반응을 보이지만 시끄러운 환경에는 매우 민감함."
         ),
         created_at=datetime.now()
+    )
+
+@router.get("/validation-receipt", response_model=ReceiptValidationResponse, tags=["Debug"])
+async def get_dummy_receipt_validation():
+    """영수증 검증의 고정된 더미 결과를 반환합니다."""
+    return ReceiptValidationResponse(
+        success=True,
+        precess_time=0.045,
+        is_valid=True,
+        message="[Debug] 고정된 검증 성공 메시지"
     )

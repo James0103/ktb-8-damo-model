@@ -46,7 +46,7 @@ async def validate_receipt_v2(
     if file.content_type not in ALLOWED_EXTENSIONS:
         return ReceiptValidationResponse(
             success=False,
-            precess_time=round(time.time() - start_time, 4),
+            process_time=round(time.time() - start_time, 4),
             is_valid=False,
             message="올바른 이미지 형식이 아닙니다 (JPEG, PNG만 허용)"
         )
@@ -56,7 +56,7 @@ async def validate_receipt_v2(
     if len(content) > MAX_FILE_SIZE:
         return ReceiptValidationResponse(
             success=False,
-            precess_time=round(time.time() - start_time, 4),
+            process_time=round(time.time() - start_time, 4),
             is_valid=False,
             message="파일 용량이 너무 큽니다 (최대 20MB)"
         )
@@ -67,7 +67,7 @@ async def validate_receipt_v2(
 
     return ReceiptValidationResponse(
         success=True,
-        precess_time=round(time.time() - start_time, 4),
+        process_time=round(time.time() - start_time, 4),
         is_valid=is_valid,
         message=message
     )

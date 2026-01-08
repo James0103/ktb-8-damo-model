@@ -27,7 +27,7 @@ class ClassifyAnalysis(BaseModel):
 class ClassifyResponse(BaseModel):
     """개인 특성 분석 응답"""
     success: bool = Field(..., description="작업 성공 여부")
-    precess_time: float = Field(..., description="서버 프로세스 시간")
+    process_time: float = Field(..., description="서버 프로세스 시간")
     user_id: int = Field(..., description="회식에 참여하는 사용자 ID")
     otherCharacteristics: str = Field(..., description="기타 특성")
     analysis: ClassifyAnalysis = Field(..., description="분석된 내용")

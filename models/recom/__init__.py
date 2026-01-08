@@ -20,12 +20,13 @@ class RecommendedItem(BaseModel):
     restaurant_name : str = Field(..., description="식당 이름")
     reasoning_description: str = Field(..., max_length=500, description="추천 사유")
     relevance_score: float = Field(..., description="추천 적합도 점수")
-    address: str = Field(..., description="식당 주소")
+    address_name: str = Field(..., description="전체 지번 주소")
+    # 응답 데이터를 백엔드와 논의해서 책임 소재를 확실히 할것
 
 class RecommendationResponse(BaseModel):
     """식당 추천 응답"""
     success: bool = Field(..., description="작업 성공 여부")
-    precess_time: float = Field(..., description="서버 프로세스 시간")
+    process_time: float = Field(..., description="서버 프로세스 시간")
     group_id: str = Field(..., description="회식 그룹 ID")
     dinner_id: str = Field(..., description="회식 ID")
     recommendations: List[RecommendedItem] = Field(..., description="추천된 식당 목록(list)")

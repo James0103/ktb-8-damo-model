@@ -1,5 +1,6 @@
 import uvicorn
 from fastapi import FastAPI
+from fastapi.responses import JSONResponse
 from api.v1.endpoints import router as v1_router
 from api.v2.endpoints import router as v2_router
 from api.debug.endpoints import router as debug_router
@@ -13,7 +14,11 @@ app = FastAPI(
 # Root path
 @app.get("/")
 async def root():
-    return {"message": "AI Schema Model API is running. Check /docs for API documentation."}
+    # return {"message": "AI Schema Model API is running. Check /docs for API documentation."}
+    return JSONResponse(status_code=400, content={
+        "error": "INVALID_INPUT",
+        "message": "AI Schema Model API is running. Check /docs for API documentation.",
+    })
 
 @app.get("/health", tags=["Health"])
 async def health_check():

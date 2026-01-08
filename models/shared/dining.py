@@ -15,5 +15,4 @@ class DiningData(BaseModel):
     dining_date: datetime = Field(..., description="회식 진행 날짜")
     vote_due_date: datetime = Field(..., description="투표 마감 날짜")
     budget: int = Field(..., description="회식 진행 예산")
-    status: DiningStatus = Field(..., description="회식의 진행 상태")
     created_at: datetime = Field(..., description="생성 일시")
